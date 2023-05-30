@@ -1,0 +1,37 @@
+{% extends 'social/layout.html' %}
+
+{% block content %}
+  <h1>Actividad: {{ actividad.titulo }}</h1>
+  <p>{{ actividad.descripcion }}</p>
+  
+  <h2>Asignaciones:</h2>
+  {% if asignaciones %}
+    <ul>
+      {% for asignacion in asignaciones %}
+        <li>{{ asignacion.trabajador.get_full_name }} - {{ asignacion.estado }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay asignaciones para esta actividad.</p>
+  {% endif %}
+  
+  <h2>Comentarios:</h2>
+  {% if comentarios %}
+    <ul>
+      {% for comentario in comentarios %}
+        <li>{{ comentario.autor.get_full_name }} - {{ comentario.contenido }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay comentarios para esta actividad.</p>
+  {% endif %}
+  
+  <form method="post">
+    {% csrf_token %}
+    {% if actividad.completada %}
+      <button type="submit" name="no_completado">Marcar como no completado</button>
+    {% else %}
+      <button type="submit" name="completado">Marcar como completado</button>
+    {% endif %}
+  </form>
+{% endblock %}

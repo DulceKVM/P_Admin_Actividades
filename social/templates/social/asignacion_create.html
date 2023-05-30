@@ -1,0 +1,17 @@
+{% extends 'social/layout.html' %}
+
+{% block content %}
+
+  <h1>Asignación de actividad</h1>
+  <p>Actividad: {{ actividad.titulo }}</p>
+  {% if asignado_a %}
+    <p>Asignado a: {{ asignado_a }}</p>
+  {% else %}
+    <p>No hay asignaciones para esta actividad.</p>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Guardar">
+  </form>
+{% endblock %}

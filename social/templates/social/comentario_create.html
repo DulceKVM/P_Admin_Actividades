@@ -1,0 +1,17 @@
+{% extends 'social/layout.html' %}
+
+{% block content %}
+  <h1>Listado de Actividades</h1>
+  <ul>
+    {% for actividad in actividades %}
+      <li>
+        <a href="{% url 'actividad-detail' actividad_id=actividad.id %}">{{ actividad.titulo }}</a>
+        <ul>
+          {% for comentario in actividad.comentarios.all %}
+            <li>{{ comentario.comentario }}</li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
